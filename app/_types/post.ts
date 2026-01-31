@@ -1,20 +1,30 @@
 import { z } from "zod";
 
-export const PostSchema = z.object({
-  id: z.number(),
+export const MicroCmsPostSchema = z.object({
+  id: z.string(),
   title: z.string(),
-  thumbnailUrl: z.url(),
-  createdAt: z.string(),
-  categories: z.array(z.string()),
   content: z.string(),
+  createdAt: z.string(),
+  thumbnail: z.object({
+    url: z.url(),
+    height: z.number(),
+    width: z.number(),
+  }),
+  categories: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+    }),
+  ),
 });
-
-export type Post = z.infer<typeof PostSchema>;
 
 export const PostListResponseSchema = z.object({
-  posts: z.array(PostSchema),
+  contents: z.array(MicroCmsPostSchema),
+  totalCount: z.number(),
+  offset: z.number(),
+  limit: z.number(),
 });
 
-export const PostDetailResponseSchema = z.object({
-  post: PostSchema,
-});
+export type Post = z.infer<typeof MicroCmsPostSchema>;
+
+export const PostDetailResponseSchema = MicroCmsPostSchema;

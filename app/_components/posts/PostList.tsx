@@ -21,12 +21,12 @@ export default function PostList({ posts }: PostListProps) {
                 {formatDate(post.createdAt)}
               </time>
               <div className="flex gap-2 flex-wrap justify-end">
-                {post.categories.map((category: string) => (
+                {post.categories.map(category => (
                   <span
-                    key={category}
+                    key={category.id}
                     className="border border-[#06c] text-[#06c] rounded-sm px-2 py-1 text-[0.8rem]"
                   >
-                    {category}
+                    {category.name}
                   </span>
                 ))}
               </div>
