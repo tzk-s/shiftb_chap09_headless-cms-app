@@ -1,9 +1,7 @@
 "use client";
 import Image from "next/image";
-import type { Post } from "../../../_types/post";
+import type { PostDetailProps } from "../../../_types/post";
 import { formatDate, sanitizeContent } from "../../../_utils";
-
-export type PostDetailProps = { post: Post };
 
 export default function PostDetail({ post }: PostDetailProps) {
   return (

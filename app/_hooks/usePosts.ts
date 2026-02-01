@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { PostListResponseSchema, type Post } from "../_types/post";
+import type { Post, PostListResponse } from "../_types/post";
 import { handleApiError } from "../_utils";
 import { API_BASE_URL, MICROCMS_API_KEY } from "../_constants/api";
 
@@ -17,13 +17,8 @@ export const usePosts = () => {
           },
         });
         if (!res.ok) throw new Error("データの取得に失敗しました。");
-        const json = await res.json();
-        const result = PostListResponseSchema.safeParse(json);
-        if (!result.success) {
-          console.error("Schema validation error:", result.error);
-          throw new Error("データ形式が正しくありません。");
-        }
-        setPosts(result.data.contents);
+        const data: PostListResponse = await res.json();
+        setPosts(data.contents);
       } catch (err) {
         setError(handleApiError(err));
       } finally {

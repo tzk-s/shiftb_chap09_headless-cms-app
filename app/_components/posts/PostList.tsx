@@ -1,11 +1,7 @@
 "use client";
 import { formatDate, sanitizeContent } from "../../_utils";
-import type { Post } from "../../_types/post";
+import type { PostListProps, Post } from "../../_types/post";
 import Link from "next/link";
-
-export type PostListProps = {
-  posts: Post[];
-};
 
 export default function PostList({ posts }: PostListProps) {
   return (

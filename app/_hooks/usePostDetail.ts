@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { PostDetailResponseSchema, type Post } from "../_types/post";
+import type { PostDetailResponse, Post } from "../_types/post";
 import { handleApiError } from "../_utils";
 import { API_BASE_URL, MICROCMS_API_KEY } from "../_constants/api";
 
@@ -21,12 +21,8 @@ export const usePostDetail = (id: string | undefined) => {
           throw new Error(
             res.status === 404 ? "記事が見つかりません" : "サーバーエラー",
           );
-        const json = await res.json();
-        const result = PostDetailResponseSchema.safeParse(json);
-        if (!result.success) {
-          throw new Error("記事データの取得に失敗しました。");
-        }
-        setPost(result.data);
+        const data: PostDetailResponse = await res.json();
+        setPost(data);
       } catch (err) {
         setError(handleApiError(err));
       } finally {
