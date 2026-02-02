@@ -1,20 +1,32 @@
-import { z } from "zod";
+export interface MicroCmsPost {
+  id: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  categories: {
+    id: string;
+    name: string;
+  }[];
+  thumbnail: {
+    url: string;
+    height: number;
+    width: number;
+  };
+}
+export interface PostListResponse {
+  contents: MicroCmsPost[];
+  totalCount: number;
+  offset: number;
+  limit: number;
+}
 
-export const PostSchema = z.object({
-  id: z.number(),
-  title: z.string(),
-  thumbnailUrl: z.url(),
-  createdAt: z.string(),
-  categories: z.array(z.string()),
-  content: z.string(),
-});
+export type PostListProps = {
+  posts: Post[];
+};
 
-export type Post = z.infer<typeof PostSchema>;
+export type PostDetailProps = {
+  post: PostDetailResponse;
+};
 
-export const PostListResponseSchema = z.object({
-  posts: z.array(PostSchema),
-});
-
-export const PostDetailResponseSchema = z.object({
-  post: PostSchema,
-});
+export type Post = MicroCmsPost;
+export type PostDetailResponse = MicroCmsPost;
